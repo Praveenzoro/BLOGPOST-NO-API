@@ -1,0 +1,70 @@
+<%- include ("partials/Header.ejs") %>
+<main>
+
+
+
+
+
+<div class="home post">
+<div class="postings">
+    <% if (locals.posts) { %>
+        <% posts.forEach((post, index )=> { %>
+       <div class="newpos">    
+        <h2><%= post.title %></h2> 
+          <h3><%= post.content %></h3>
+          <button type="button" class="edit-button" data-index="<%= index %>">Edit</button>
+          <form class="delete" action="/delete" method="POST" >
+            <input type="hidden" name="index" value="<%= index %>">
+            <button type="submit">Delete</button>
+        </form>
+          <div class="editform" id="editform-<%= index %>">
+              <form action="/post" method="POST">
+                  <input type="hidden" name="index" value="<%= index %>">
+                  <input type="text" name="Title" placeholder="Title" value="<%= post.title %>" required>
+                  <textarea name="content" placeholder="Content" required><%= post.content %></textarea>
+                  <button type="submit">Save</button>
+              </form>
+          </div>
+        </div> 
+        <% }) %>
+      <% } else { %>
+        <h3>No posts available</h3>
+      <% } %>
+    
+</div>
+
+ </div>
+
+
+
+
+
+
+
+
+</main>
+<%- include ("partials/Footer.ejs") %>
+
+
+<script>
+    const menu = document.querySelector('.menu');
+    const menulist = document.querySelector('nav ul');
+    const editbut = document.getElementById("editing");
+    menu.addEventListener('click',()=>{
+        menulist.classList.toggle('showmenu');
+    })
+    
+    document.querySelectorAll('.edit-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const index = this.getAttribute('data-index');
+        const editForm = document.getElementById(`editform-${index}`);
+        if (editForm.style.display === 'none' || editForm.style.display === '') {
+            editForm.style.display = 'block';
+            
+        } else {
+            editForm.style.display = 'none';
+        }
+    });
+});
+
+    </script>

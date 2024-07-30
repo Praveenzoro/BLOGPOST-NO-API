@@ -1,0 +1,10 @@
+<%- include ("partials/Header.ejs") %>
+
+<form action="/update/<%= index %>" method="POST">
+  <input type="text" name="Title" placeholder="Title" value="<%= post.title %>" required>
+  <textarea name="content" placeholder="Content" required><%= post.content %></textarea>
+  <button type="submit">Save</button>
+</form>
+
+
+<%- include ("partials/Footer.ejs") %>
